@@ -4,7 +4,18 @@ let checkbtn;
 const mbti = ['I', 'N', 'T', 'P', 'E', 'S', 'F', 'J'];
 let current_mbti = ['', '', '', ''];
 
-let answer_mbti = 'INTP';
+// TODO: 여기에 정답과, 반대 mbti를 설정합니다.
+const answer_mbti = 'INTP';
+const wrong_mbti = 'ESFJ';
+
+const wrong_mbti_dialogs = [
+  '나도 알아. 나 못난거',
+  '근데 왜 나에 대한 기준만 이렇게 엄격한데?',
+  '다들 날 싫어하는게 분명해',
+];
+let index = -1;
+
+let isanswer = 'none';
 
 function setup() {
   createCanvas(400, 400);
@@ -20,17 +31,40 @@ function setup() {
 }
 
 function draw() {
-  background(220);
+  if (index >= 0) {
+    background(50);
+    textSize(14);
+    fill(255);
+    text(wrong_mbti_dialogs[index], 30, 175);
+    fill(0);
+  } else {
+    background(220);
+  }
 
+  switch (isanswer) {
+    case 'none':
+      text('MBTI를 맞춰보세요!', 30, 40);
+      break;
+    case 'true':
+      text('정답입니다!!!', 30, 40);
+      break;
+    case 'false':
+      text('틀렸어.', 30, 40);
+      break;
+  }
+
+  // 현재 선택한 mbti를 알려주는 View
   for (let i = 0; i < 4; i++) {
     text(current_mbti[i], 55 + i * 50, 80, 85 + i * 50, 80);
     line(50 + i * 50, 100, 80 + i * 50, 100);
   }
 
+  // mbti 버튼
   for (let i = 0; i < 8; i++) {
     btn[i].show();
   }
 
+  // mbti 버튼 클릭 처리
   for (let i = 0; i < 8; i++) {
     let clicked_mbti = btn[i].click();
 
@@ -39,15 +73,24 @@ function draw() {
     }
   }
 
+  // 확인 버튼
   checkbtn.show();
+
+  // TODO: 여기에 확인 버튼 클릭을 처리합니다.
   if (checkbtn.click()) {
-    // 여기에 확인 버튼이 눌렸을 때 처리
     let tried_mbti = current_mbti.join('');
 
-    if (answer_mbti == tried_mbti) {
-      console.log('정답!');
-    } else {
-      console.log('실패');
+    switch (tried_mbti) {
+      case answer_mbti:
+        index = -1;
+        isanswer = 'true';
+        break;
+      case wrong_mbti:
+        index++;
+        break;
+      default:
+        isanswer = 'false';
+        break;
     }
   }
 }
