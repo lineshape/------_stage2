@@ -1,5 +1,6 @@
 let btn = [];
 let checkbtn;
+let blood_img;
 
 const mbti = ['I', 'N', 'T', 'P', 'E', 'S', 'F', 'J'];
 let current_mbti = ['', '', '', ''];
@@ -9,7 +10,7 @@ const answer_mbti = 'INTP';
 const wrong_mbti = 'ESFJ';
 
 const wrong_mbti_dialogs = [
-  '나도 알아. 나 못난거',
+  '전혀 틀렸어. 나도 알아. 나 못난거',
   '근데 왜 나에 대한 기준만 이렇게 엄격한데?',
   '다들 날 싫어하는게 분명해',
 ];
@@ -28,6 +29,8 @@ function setup() {
   }
 
   checkbtn = new Button(300, 100, 50, 50, '확인');
+
+  blood_img = loadImage('assets/blood.png');
 }
 
 function draw() {
@@ -46,7 +49,7 @@ function draw() {
       text('MBTI를 맞춰보세요!', 30, 40);
       break;
     case 'true':
-      text('정답입니다! 다음은 3333을 입력해.', 30, 40);
+      text('정답입니다! 다음은 9999을 입력해.', 30, 40);
       break;
     case 'false':
       text('틀렸어.', 30, 40);
