@@ -21,31 +21,37 @@ let isanswer = 'none';
 var fireworks = [];
 
 function setup() {
-  createCanvas(window.innerWidth, window.innerHeight);
+  createCanvas(400, 400);
+
+  // mbti 버튼 만들기
   for (let i = 0; i < 4; i++) {
     btn.push(new Button(i * 100, 200, 100, 100, mbti[i]));
   }
-
   for (let i = 4; i < 8; i++) {
     btn.push(new Button((i - 4) * 100, 300, 100, 100, mbti[i]));
   }
 
+  // 확인 버튼 만들기
   checkbtn = new Button(300, 100, 50, 50, '확인');
 
+  // 피 이미지 불러오기
   blood_img = loadImage('assets/blood.png');
 }
 
 function draw() {
+  // 완전히 틀린 답을 입력했을 때의 처리
   if (index >= 0) {
-    image(blood_img, 0, 0, window.innerWidth, window.innerHeight);
+    // 배경을 피 이미지로 바꾸고, 대사 표시(대사는 클릭 할 때마다 바뀜)
+    image(blood_img, 0, 0, 400, 400);
     textSize(14);
-    fill(0);
     text(wrong_mbti_dialogs[index], 30, 175);
-    fill(0);
   } else {
+    // 일반 배경
     background(220);
   }
 
+  // 현재 상태에 따라 나타나는 글씨가 달라짐
+  // none: 처음 상태, false: 완전히 틀린 상태, true: 정답 상태
   switch (isanswer) {
     case 'none':
       text('MBTI를 맞춰보세요!', 30, 40);
@@ -81,7 +87,7 @@ function draw() {
   // 확인 버튼
   checkbtn.show();
 
-  // TODO: 여기에 확인 버튼 클릭을 처리합니다.
+  // 확인 버튼 클릭 처리
   if (checkbtn.click()) {
     let tried_mbti = current_mbti.join('');
 
@@ -90,7 +96,6 @@ function draw() {
         index = -1;
         isanswer = 'true';
         fireworks.push(new Fireworks(80));
-        setInterval(() => fireworks.push(new Fireworks(80)), 3000);
         break;
       case wrong_mbti:
         index++;
@@ -101,6 +106,7 @@ function draw() {
     }
   }
 
+  // 폭죽 처리
   for (var i = 0; i < fireworks.length; i++) {
     fireworks[i].display();
     fireworks[i].update();
@@ -110,6 +116,7 @@ function draw() {
   }
 }
 
+// 폭죽 보여주는 함수
 function Fireworks(radius) {
   var num = 512; //     ，      (     )
   var centerPosition = new p5.Vector(
