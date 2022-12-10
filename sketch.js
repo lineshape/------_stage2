@@ -35,7 +35,7 @@ function setup() {
 
 function draw() {
   if (index >= 0) {
-    background(50);
+    image(blood_img, 0, 0, 400, 400);
     textSize(14);
     fill(255);
     text(wrong_mbti_dialogs[index], 30, 175);
