@@ -46,7 +46,7 @@ function draw() {
       text('MBTI를 맞춰보세요!', 30, 40);
       break;
     case 'true':
-      text('정답입니다!!!', 30, 40);
+      text('정답입니다! 다음은 3333을 입력해.', 30, 40);
       break;
     case 'false':
       text('틀렸어.', 30, 40);
